@@ -44,10 +44,18 @@ public class Customer {
 
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
-        if (transaction.getType() == 'c') balance += transaction.getValue();
-        if (transaction.getType() == 'd') balance -= transaction.getValue();
+        if (transaction.getType() == 'c') debit(transaction);
+        if (transaction.getType() == 'd') credit(transaction);
     }
 
+    private void debit(Transaction transaction){
+        balance -= transaction.getValue();
+    }
+
+    private void credit(Transaction transaction){
+        balance += transaction.getValue();
+
+    }
     public List<Transaction> getTransactions() {
         return transactions;
     }

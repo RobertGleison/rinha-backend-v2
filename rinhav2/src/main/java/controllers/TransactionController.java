@@ -23,9 +23,7 @@ public class TransactionController {
 
     @PostMapping("/{id}/transacoes")
     public ResponseEntity<TransactionResponse> createTransaction(TransactionRequest transactionRequest, @PathVariable Integer customerId){
-//        URI uri = ServletUriComponentsBuilder
-//                .fromCurrentRequest()
-//                .path().build().toUri();
+//
         return ResponseEntity.ok().body(service.createTransaction(transactionRequest, customerId));
     }
 //

@@ -7,6 +7,7 @@ import dtos.TransactionResponse;
 import entities.Customer;
 import entities.Transaction;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.ValidationException;
 import org.springframework.stereotype.Service;
 import services.TransactionService;
 
@@ -30,8 +31,16 @@ public class TransactionServiceImpl implements TransactionService {
                                         transactionRequest.type(),
                                         transactionRequest.description(),
                                         customer.get());
+        if(!transactionValidation(t, customer.get())) throw new ValidationException("this transaction will overpass the limit");
         customer.get().addTransaction(t);
         transactionRepository.save(t);
         return new TransactionResponse(customer.get().getLimit(), customer.get().getBalance());
+    }
+
+    private boolean transactionValidation(Transaction transaction, Customer customer){
+        if (transaction.getType() == 'd'){
+            if(customer.getBalance() - transaction.getValue() < customer.getLimit()) return false;
+        }
+        return true;
     }
 }
