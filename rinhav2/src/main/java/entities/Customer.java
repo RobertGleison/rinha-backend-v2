@@ -42,10 +42,11 @@ public class Customer {
 
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
+        balance += transaction.getValue();
     }
 
-    public void removeTransaction(Transaction transaction){
-        transactions.remove(transaction);
+    public List<Transaction> getTransactions() {
+        return transactions;
     }
 
     public Customer getCustomer(){

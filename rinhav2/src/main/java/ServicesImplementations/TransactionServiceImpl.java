@@ -1,4 +1,4 @@
-package services;
+package ServicesImplementations;
 
 import Repositories.CustomerRepository;
 import Repositories.TransactionRepository;
@@ -7,11 +7,12 @@ import dtos.TransactionResponse;
 import entities.Customer;
 import entities.Transaction;
 import org.springframework.stereotype.Service;
+import services.TransactionService;
 
 import java.util.Optional;
 
 @Service
-public class TransactionServiceImpl implements TransactionService{
+public class TransactionServiceImpl implements TransactionService {
 
     private TransactionRepository transactionRepository;
     private CustomerRepository customerRepository;
