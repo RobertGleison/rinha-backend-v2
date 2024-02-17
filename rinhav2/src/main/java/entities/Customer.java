@@ -15,11 +15,13 @@ public class Customer {
     //@TODO: Maybe the best type option should be BigDecimal.
     private Integer limit;
     private Integer balance;
+    Customer customer;
     private List<Transaction> transactions;
 
-    public Customer(Integer limit, Integer balance) {
+    public Customer(Integer limit, Integer balance, Customer customer) {
         this.limit = limit;
         this.balance = balance;
+        this.customer = customer;
     }
 
     public int getId() {
@@ -44,6 +46,10 @@ public class Customer {
 
     public void removeTransaction(Transaction transaction){
         transactions.remove(transaction);
+    }
+
+    public Customer getCustomer(){
+        return customer;
     }
 
 }
