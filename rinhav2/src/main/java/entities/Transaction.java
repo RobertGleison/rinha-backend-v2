@@ -17,12 +17,14 @@ public class Transaction {
     private Integer value;
     private Character type;
     private String description;
+    private Customer customer;
     private final LocalDateTime timeStamp;
 
-    public Transaction(Integer value, Character type, String description) {
+    public Transaction(Integer value, Character type, String description, Customer customer) {
         this.value = value;
         this.type = type;
         this.description = description;
+        this.customer = customer;
         this.timeStamp = LocalDateTime.now();
     }
 

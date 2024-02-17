@@ -1,4 +1,5 @@
 package dtos;
 
-public record TransactionResponse(Integer limit, Integer balance) {
+public record TransactionResponse(Integer limit,
+                                  Integer balance) {
 }

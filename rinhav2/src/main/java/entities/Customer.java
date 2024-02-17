@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
 
@@ -13,15 +14,16 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
     //@TODO: Maybe the best type option should be BigDecimal.
+    @NotBlank
     private Integer limit;
+    @NotBlank
     private Integer balance;
-    Customer customer;
+
     private List<Transaction> transactions;
 
-    public Customer(Integer limit, Integer balance, Customer customer) {
+    public Customer(Integer limit, Integer balance) {
         this.limit = limit;
         this.balance = balance;
-        this.customer = customer;
     }
 
     public int getId() {
@@ -42,15 +44,11 @@ public class Customer {
 
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
-        balance += transaction.getValue();
+        if (transaction.getType() == 'c') balance += transaction.getValue();
+        if (transaction.getType() == 'd') balance -= transaction.getValue();
     }
 
     public List<Transaction> getTransactions() {
         return transactions;
     }
-
-    public Customer getCustomer(){
-        return customer;
-    }
-
 }
