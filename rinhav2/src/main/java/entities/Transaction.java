@@ -1,21 +1,28 @@
 package entities;
 
-import java.time.LocalDateTime;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import org.hibernate.annotations.IdGeneratorType;
 
+import java.time.LocalDateTime;
+import java.util.Objects;
+
+@Entity
 public class Transaction {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer Id;
     private Integer value;
     private Character type;
     private String description;
-    private Integer limit;
-    private Integer balance;
-    private LocalDateTime timeStamp;
+    private final LocalDateTime timeStamp;
 
-    public Transaction(Integer value, Character type, String description, Integer limit, Integer balance) {
+    public Transaction(Integer value, Character type, String description) {
         this.value = value;
         this.type = type;
         this.description = description;
-        this.limit = limit;
-        this.balance = balance;
         this.timeStamp = LocalDateTime.now();
     }
 
@@ -23,39 +30,28 @@ public class Transaction {
         return value;
     }
 
-    public void setValue(Integer value) {
-        this.value = value;
-    }
-
     public Character getType() {
         return type;
-    }
-
-    public void setType(Character type) {
-        this.type = type;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Integer getLimit() {
-        return limit;
-    }
-
-    public void setLimit(Integer limit) {
-        this.limit = limit;
-    }
-
-    public Integer getBalance() {
-        return balance;
-    }
-
     public LocalDateTime getTimeStamp() {
         return timeStamp;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transaction that = (Transaction) o;
+        return Objects.equals(value, that.value) && Objects.equals(timeStamp, that.timeStamp);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value, timeStamp);
     }
 }
